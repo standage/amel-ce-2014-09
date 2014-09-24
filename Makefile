@@ -15,7 +15,7 @@ coverage:				c1.exoncov c2.exoncov c3.exoncov c4.exoncov c5.exoncov c6.exoncov t
 dmnt3-kd-juncspancounts.txt:		BEE_CE_LIST
 					echo $$'exon1-exon2:control\texon2-exon3:control\texon1-exon3:control\texon1-exon2:treatment\texon2-exon3:treatment\texon1-exon3:treatment' > junc-span-counts.txt 
 					cut -f 6- BEE_CE_LIST | tail -n +2 | awk -v OFS=$$'\t' '{ print $$1+$$4+$$7+$$10+$$13+$$16,$$2+$$5+$$8+$$11+$$14+$$17,$$3+$$6+$$9+$$12+$$15+$$18,$$19+$$22+$$25,$$20+$$23+$$26,$$21+$$24+$$27 }' >> junc-span-counts.txt
-					cut -f 1-5 BEE_CE_LIST | head -n 1 > BEE_CE_LIST.info
+					cut -f 1-5 BEE_CE_LIST | head -n 1 | perl -ne 's/[ \t]+/\t/g; print' > BEE_CE_LIST.info
 					cut -f 1-5 BEE_CE_LIST | tail -n +2 | awk -v OFS=$$'\t' '{ print $$1,$$2-1,$$3,$$4-1,$$5 }' >> BEE_CE_LIST.info
 					paste BEE_CE_LIST.info junc-span-counts.txt > dmnt3-kd-juncspancounts.txt
 					rm junc-span-counts.txt BEE_CE_LIST.info
