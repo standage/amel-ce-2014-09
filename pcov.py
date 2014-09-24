@@ -33,8 +33,6 @@ print header
 for line in sys.stdin:
   line = line.rstrip()
   fields = line.split()
-  fields[1] = str(int(fields[1]) - 1)
-  fields[3] = str(int(fields[3]) - 1)
   if fields[1] not in exons_by_end:
     continue
   if fields[4] not in exons_by_start:
