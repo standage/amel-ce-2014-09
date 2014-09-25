@@ -33,6 +33,7 @@ print header
 for line in sys.stdin:
   line = line.rstrip()
   fields = line.split()
+  assert len(fields) == 11, "expected 11 fields, found %d: %s" % (len(fields), line)
   if fields[1] not in exons_by_end:
     continue
   if fields[4] not in exons_by_start:

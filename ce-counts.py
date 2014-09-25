@@ -1,10 +1,14 @@
 #!/usr/bin/env python
 #
-# Input:  TrueSight SAM file (standard input), list of annotated cassette exons
-#         (positional argument), and sample/rep label (positional argument)
+# Input:  TrueSight alignments in SAM format (standard input), list of annotated
+#         cassette exons (positional argument), and sample/replicate label
+#         (positional argument)
 # Output: skipped exon events, along with the number of mapped reads spanning
 #         each associated splice junction
 import re, sys
+
+usage = "samtools view sample.bam | python ce-counts.py CE sample > sample.ce"
+assert len(sys.argv) == 3, "error: expected 2 arguments; Usage: %s" % usage
 
 # Look at gapped alignments, determine # of mapped reads spanning each junction
 junction_read_counts = {}

@@ -1,5 +1,11 @@
 #!/usr/local/env python
+#
+# Input:  Gene annotation in GFF3 format and a list of cassette exons
+# Output: A GFF3 file containing all exons from either input file
 import sys
+
+usage = "python exon-gff3.py annot.gff3 CE > exons.gff3"
+assert len(sys.argv) == 3, "error: expected 2 arguments; usage: %s" % usage
 
 exons = {}
 for line in open(sys.argv[1], "r"):
@@ -16,7 +22,6 @@ for line in open(sys.argv[2], "r"):
   intrnlexon = "%s_%s-%s" % (fields[0], fields[2], fields[3])
   if intrnlexon in exon:
     continue
-  print >> sys.stderr, "DEBUG"
   exongff3 = [fields[0], ".", "exon", fields[2], fields[3], ".", ".", ".", "."]
   print "\t".join(exongff3)
   

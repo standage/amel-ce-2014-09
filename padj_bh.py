@@ -13,6 +13,7 @@ infile = open(sys.argv[1], "r")
 infile.readline()
 for line in infile:
   fields = line.rstrip().split("\t")
+  assert len(fields) == 14, "expected 14 fields, found %d: %s" % (len(fields), line.rstrip())
   chi2 = float(fields[-1])
   pvalue = stats.chisqprob(chi2, df)
   pvalues.append(pvalue)
