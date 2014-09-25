@@ -16,7 +16,7 @@ for line in open(sys.argv[1], "r"):
   seqid = idmatch.group(1)
   start = idmatch.group(2)
   end   = idmatch.group(3)
-  control_cov[exon] = map(float, fields[2:7])
+  control_cov[exon] = map(float, fields[1:7])
   treatment_cov[exon] = map(float, fields[7:])
   if start not in exons_by_start:
     exons_by_start[start] = []
@@ -63,6 +63,9 @@ for line in sys.stdin:
     if cov_ab + cov_cd > 0:
       ratio = (cov_ab + cov_cd - (2 * cov_pq)) / (cov_ab + cov_cd)
     control_es_ratios.append(ratio)
+    # Group4.5        1281719 1282057 1282175 1282290
+    if fields[0] == "Group4.5" and fields[1] == "1281719":
+      print >> sys.stderr, "control %d: %.5f" % (i, ratio)
 
   treatment_es_ratios = []
   for i in range(len(cov_ab_treatment)):
@@ -73,6 +76,9 @@ for line in sys.stdin:
     if cov_ab + cov_cd > 0:
       ratio = (cov_ab + cov_cd - (2 * cov_pq)) / (cov_ab + cov_cd)
     treatment_es_ratios.append(ratio)
+    # Group4.5        1281719 1282057 1282175 1282290
+    if fields[0] == "Group4.5" and fields[1] == "1281719":
+      print >>sys.stderr, "treatment %d: %.5f" % (i, ratio)
 
   tstat, pvalue = stats.ttest_ind(control_es_ratios, treatment_es_ratios)
   line += "\t%.5f" % pvalue
