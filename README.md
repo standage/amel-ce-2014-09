@@ -1,29 +1,26 @@
 # Differential splicing analysis workflow for skipped exons
 
-<!--
-
-Daniel Standage <daniel.standage@gmail.com>
+25 Sept 2014, Daniel Standage <daniel.standage@gmail.com>.
 Based on scripts by Yang Li <yangli8@illinois.edu>
-      and supplementary info at http://dx.doi.org/10.1073/pnas.1310735110
-25 Sept 2014
-
--->
+and supplementary info at http://dx.doi.org/10.1073/pnas.1310735110
 
 ## Overview
 
 Yang Li was kind enough to share some of the scripts he used to collect data for
 Pcount calculations as described in the Supporting Information (supplement) of
 [this recent PNAS paper](http://dx.doi.org/10.1073/pnas.1310735110). Although
-the full Pcount calculation was not automated by these scripts, it gave me a
-enough of a starting point to fully automate the calculation. Based on the
-description in the paper supplement and some suggestions from Yang, I also went
-on to automate calculation of Pcov, combined probabilities, and final
-probabilities corrected for multiple testing. This workflow is implemented as a
-Make file, which in turn utilizes a collection of Python scripts.
+the full Pcount calculation was not automated by these scripts, they provided
+me enough of a starting point so that I could write a fully automated workflow
+to do the calculation.
+
+Based on the description in the paper supplement and some suggestions from Yang,
+I also went on to automate calculation of Pcov, combined probabilities, and
+final probabilities corrected for multiple testing. This workflow is implemented
+as a Make file, which in turn utilizes a collection of Python scripts.
 
 ## Prerequisites
 
-Running the workflow requires the following software.
+Running the complete workflow requires the following software.
 
 - GNU Make
 - Python (tested with Python 2.7)
