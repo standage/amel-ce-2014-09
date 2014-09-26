@@ -3,7 +3,7 @@ SHELL=bash
 
 # TrueSight alignments in BAM format
 controlbam=c1.bam c2.bam c3.bam c4.bam c5.bam c6.bam
-treatmentbam=t1.bam t2.bam t3.bam t4.bam # t5.bam t6.bam
+treatmentbam=t1.bam t2.bam t3.bam t4.bam t5.bam # t6.bam
 allbam=$(controlbam) $(treatmentbam)
 
 # CE (cassette exon) events
@@ -36,7 +36,7 @@ amel-pcov.tsv:				amel-ce-summed.tsv amel-exoncov.tsv pcov.py
 amel-ce-summed.tsv:			amel-ce.tsv
 					echo $$'exon1-exon2:control\texon2-exon3:control\texon1-exon3:control\texon1-exon2:treatment\texon2-exon3:treatment\texon1-exon3:treatment' > junc-span-counts.tsv 
 					#cut -f 6-  amel-ce.tsv | tail -n +2 | awk -v OFS=$$'\t' '{ print $$1+$$4+$$7+$$10+$$13+$$16,$$2+$$5+$$8+$$11+$$14+$$17,$$3+$$6+$$9+$$12+$$15+$$18,$$19+$$22+$$25+$$28+$$31+$$34,$$20+$$23+$$26+$$29+$$32+$$35,$$21+$$24+$$27+$$30+$$33+$$36 }' >> junc-span-counts.tsv
-					cut -f 6-  amel-ce.tsv | tail -n +2 | awk -v OFS=$$'\t' '{ print $$1+$$4+$$7+$$10+$$13+$$16,$$2+$$5+$$8+$$11+$$14+$$17,$$3+$$6+$$9+$$12+$$15+$$18,$$19+$$22+$$25+$$28,$$20+$$23+$$26+$$29,$$21+$$24+$$27+$$30 }' >> junc-span-counts.tsv
+					cut -f 6-  amel-ce.tsv | tail -n +2 | awk -v OFS=$$'\t' '{ print $$1+$$4+$$7+$$10+$$13+$$16,$$2+$$5+$$8+$$11+$$14+$$17,$$3+$$6+$$9+$$12+$$15+$$18,$$19+$$22+$$25+$$28+$$31,$$20+$$23+$$26+$$29+$$32,$$21+$$24+$$27+$$30+$$33 }' >> junc-span-counts.tsv
 					cut -f 1-5 amel-ce.tsv | head -n 1 | perl -ne 's/[ \t]+/\t/g; print' > amel-dmnt3-kd-ce.temp
 					cut -f 1-5 amel-ce.tsv | tail -n +2 | awk -v OFS=$$'\t' '{ print $$1,$$2-1,$$3,$$4-1,$$5 }' >> amel-dmnt3-kd-ce.temp
 					paste amel-dmnt3-kd-ce.temp junc-span-counts.tsv > amel-ce-summed.tsv

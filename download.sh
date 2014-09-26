@@ -2,6 +2,8 @@
 set -e
 SRA=ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByRun/sra/SRR/SRR893
 which fastq-dump
+mkdir -p rnaseq
+cd rnaseq
 
 # Download all 12 libraries (serially)
 for i in {21..44}

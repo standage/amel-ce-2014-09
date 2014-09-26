@@ -8,12 +8,10 @@ header = header.rstrip() + "\tPcount\tCombinedChi2"
 print header
 for line in sys.stdin:
   fields = line.rstrip().split("\t")
-  #fields[1] = str(int(fields[1]) - 1)
-  #fields[3] = str(int(fields[3]) - 1)
   pcov = float(fields[-1])
-  control_ic = (int(fields[5]) + int(fields[6])) / 2
+  control_ic = round((float(fields[5]) + float(fields[6])) / 2)
   control_is = int(fields[7])
-  treatment_ic = (int(fields[8]) + int(fields[9])) / 2
+  treatment_ic = round((float(fields[8]) + float(fields[9])) / 2)
   treatment_is = int(fields[10])
   pcount_str = "nan"
   if control_ic + control_is + treatment_ic + treatment_is > 0:

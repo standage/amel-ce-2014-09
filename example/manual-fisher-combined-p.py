@@ -3,8 +3,8 @@ from scipy import stats
 from math import log
 
 df     = 4 # k=2 probabilities, 2k=4
-pcount = 0.00313
-pcov   = 0.89476
+pcount = 0.00178
+pcov   = 0.86865
 
 chi2 = -2 * ( log(pcount) + log(pcov) )
 pvalue = stats.chisqprob(chi2, df)
