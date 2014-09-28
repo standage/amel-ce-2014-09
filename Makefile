@@ -42,7 +42,7 @@ amel-ce-summed.tsv:			amel-ce.tsv
 					rm junc-span-counts.tsv amel-dmnt3-kd-ce.temp
 
 amel-ce.tsv:				$(allce_cut)
-					paste <(echo -e "seqid\texon1_e\texon2_b\texon2_e\texon3_b" && cut -f 1-5 CE | perl -ne 's/[ \t]+/\t/g; print') $(allce_cut) >> amel-ce.tsv
+					paste <(echo -e "seqid\texon1_e\texon2_b\texon2_e\texon3_b" && cut -f 1-5 CE | perl -ne 's/[ \t]+/\t/g; print') $(allce_cut) > amel-ce.tsv
 
 %.ce.temp:				%.ce
 					echo $$'$*:exon1-exon2\t$*:exon2-exon3\t$*:exon1-exon3' > $*.ce.temp

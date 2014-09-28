@@ -54,33 +54,32 @@ scripts in the ``example`` directory perform the calculations.
 
 ### Pcount
   The Pcount value for this CE event is calculated using the
-  ``example/manual-pcount.py`` script, using junction-spanning read counts from
-  the ``amel-ce.tsv`` file. While the counts calculated by workflow agree
-  perfectly with the workflow provided by Yang (i.e. the ``BEE_CE_LIST`` file),
-  neither of these agree with the numbers reported for this CE event in the
-  paper.
+  ``example/pcount.py`` script, using junction-spanning read counts from the
+  ``amel-ce.tsv`` file. While the counts calculated by workflow agree perfectly
+  with the workflow provided by Yang (i.e. the ``BEE_CE_LIST`` file), neither of
+  these agree with the numbers reported for this CE event in the paper.
 
   The contingency table for this CE event's Fisher's Exact Test is shown below.
-  This test produces a p value of 0.00178.
+  This test produces a p value of 0.00287.
 
 |             |  Exon contained  |  Exon skipped  |
 |:-----------:|:----------------:|:--------------:|
 |   Control   |       208        |      546       |
-|  Treatment  |       172        |      655       |
+|  Treatment  |       218        |      801       |
 
 ### Pcov
   The ES skipping ratio was calculated for each replicate using the
-  ``example/manual-es-ratio.py`` script. These values were then used to
-  calculate Pcov with the ``example/manual-pcov.py`` script. These values could
-  not be confirmed since Yang provided no coverage data.
+  ``example/es-ratio.py`` script. These values were then used to calculate Pcov
+  with the ``example/pcov.py`` script. These values could not be confirmed since
+  Yang provided no coverage data.
 
   The unpaired t test on control versus treatment skipping ratios produces a p
-  value of 0.86865.
+  value of 0.74836.
 
 ### Combined probability
   Pcov and Pcount were combined using Fisher's combined probability, as
-  described in the PNAS supplement, using the
-  ``example/manual-fisher-combined-p.py`` script.
+  described in the PNAS supplement, using the ``example/fisher-combined-p.py``
+  script.
 
-  Fisher's method yields a chi square value of 12.944, which at 2k=4 degrees of
-  freedom produces a p value of 0.01155.
+  Fisher's method yields a chi square value of 12.287, which at 2k=4 degrees of
+  freedom produces a p value of 0.01534.
