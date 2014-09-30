@@ -112,18 +112,18 @@ the dmnt3 knockdown paper.
 
 - The ``CE`` file provided by Yang annotates CE events by listing the start and
   end coordinates of the skipped exon, as well as the closest nucleotide of each
-  flanking exon. Using the OGS 3.2, this describes a single unambiguous set of 3
-  exons, the middle of which is alternatively skipped. However, in some cases
-  the description matches multiple potential flanking exons, and in some cases
-  the description fails to provide a match for one or both of the flanking
-  exons. These missing exons were probably found using the method described in
-  the TrueSight supplement (improving the GLEAN annotation), but neither the
-  improved annotation nor the code used to generate it has been made available.
-  Regarding CE events with multiple potential combinations of flanking exons,
-  handling of this case was not described in the dmnt3 knockdown paper or its
-  supplement, so for now I have ignored these cases. This may explain some of
-  the discrepancy between the results I describe here and those reported in the
-  published paper.
+  flanking exon. Using the OGS 3.2, most of these events correspond to a single
+  unambiguous set of 3 exons, the middle of which is alternatively skipped.
+  However, in some cases the description matches multiple potential flanking
+  exons, and in some cases the description fails to provide a match for one or
+  both of the flanking exons. These missing exons were probably found using the
+  method described in the TrueSight supplement (improving the GLEAN annotation),
+  but neither the  improved annotation nor the code used to generate it has been
+  made available. Regarding CE events with multiple potential combinations of
+  flanking exons, handling of this case was not described in the dmnt3 knockdown
+  paper or its supplement, so for now I have ignored these cases. This may
+  explain some of the discrepancy between the results I describe here and those
+  reported in the published paper.
 - I have a concern about normalization for library size (or the lack thereof)
   for some of these calculations. It seems reasonable that library size need not
   be taken into account for Pcov calculations, since these are based on coverage
