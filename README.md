@@ -49,12 +49,11 @@ RNA-seq data (see ``download.sh``) and running the alignments with TrueSight
 ## A simple example
 The main text of the dmnt3 knockdown paper listed above provides a single
 example of a CE (cassette exon) event: gene GB53079 on scaffold 4.5. I used this
-gene to test whether I had implemented to workflow correctly. Minimal Python
-scripts in the ``example`` directory perform the calculations.
+gene to test whether I had implemented to workflow correctly. A minimal Python
+script ``example.py`` performs the calculations.
 
 ### Pcount
-  The Pcount value for this CE event is calculated using the
-  ``example/pcount.py`` script, using junction-spanning read counts from the
+  The Pcount value is calculated using junction-spanning read counts from the
   ``amel-ce.tsv`` file. While the counts calculated by workflow agree perfectly
   with the workflow provided by Yang (i.e. the ``BEE_CE_LIST`` file), neither of
   these agree with the numbers reported for this CE event in the paper.
@@ -67,16 +66,13 @@ scripts in the ``example`` directory perform the calculations.
 |   Control   |       208        |      546       |
 |  Treatment  |       218        |      801       |
 
-  **Note**: The counts for mapped reads spanning splice junctions reported in
-  the paper is less than what is shown here. Yang confirmed that they only
-  showed the calculation for a single control and a single treatment. The
-  Fisher's Exact Test for the numbers reported in the paper produces a p value
-  of 0.09288.
+  **Update**: Yang has confirmed that the numbers reported in the paper
+  correspond to a single control and a single treatment. The Fisher's Exact Test
+  for the numbers reported in the paper produces a p value of 0.09288.
 
 ### Pcov
-  The ES skipping ratio was calculated for each replicate using the
-  ``example/es-ratio.py`` script. These values were then used to calculate Pcov
-  with the ``example/pcov.py`` script.
+  The ES skipping ratios for this example are calculated using the
+  ``es-ratio.py`` script, and these ratios are then used to calculate Pcov.
 
   The unpaired t test on control versus treatment skipping ratios produces a p
   value of 0.74836. No Pcov calculations are provided for the example in the
@@ -84,8 +80,7 @@ scripts in the ``example`` directory perform the calculations.
 
 ### Combined probability
   Pcov and Pcount were combined using Fisher's combined probability, as
-  described in the PNAS supplement, using the ``example/fisher-combined-p.py``
-  script.
+  described in the supplement.
 
   Fisher's method yields a chi square value of 12.287, which at 2k=4 degrees of
   freedom produces a p value of 0.01534. Again, these values are not provided
@@ -101,7 +96,7 @@ shell commands can determine how many events are significant (at a particular
 threshold) and which events those are.
 
 ```bash
-# How many skipped exon events and significant?
+# How many skipped exon events are significant?
 perl -ne '@v = split(/\t/); print if($v[14] < 0.01)' < amel-final.tsv | wc -l
 
 # Store significant events in a separate table
@@ -131,7 +126,7 @@ the dmnt3 knockdown paper.
   published paper.
 - I have a concern about normalization for library size (or the lack thereof)
   for some of these calculations. It seems reasonable that library size need not
-  be taken into account for Pcov calculations, since there are based on coverage
+  be taken into account for Pcov calculations, since these are based on coverage
   ratios of adjacent exons within a replicate. However, the Pcount values are
   calculated from raw read counts aggregated over all replicates. Without
   normalizing for library size, it seems impossible to discriminate whether
