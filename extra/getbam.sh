@@ -7,6 +7,6 @@ do
   for rep in {1..6}
   do
     sample=${cond}${rep}
-    echo curl -O ${URL}/${sample}.bam
+    curl -O ${URL}/${sample}.bam
   done
 done
