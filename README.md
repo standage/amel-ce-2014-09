@@ -43,8 +43,10 @@ you'll probably want to execute the following command.
 
 It requires about 10 minutes to build the final output table ``amel-final.tsv``.
 This does not include the most time-intensive steps, which are downloading the
-RNA-seq data (see ``download.sh``) and running the alignments with TrueSight
-(see ``truesight.sh``), which requires several days for this data set.
+RNA-seq data (see ``extra/download.sh``) and running the alignments with
+TrueSight (see ``extra/truesight.sh``), which requires several days for this
+data set. If you're not interested in re-running TrueSight from scratch, you
+can simply download the ``.bam`` files from my server (see ``extra/getbam.sh``).
 
 ## A simple example
 The main text of the dmnt3 knockdown paper listed above provides a single
@@ -97,10 +99,10 @@ threshold) and which events those are.
 
 ```bash
 # How many skipped exon events are significant?
-perl -ne '@v = split(/\t/); print if($v[14] < 0.01)' < amel-final.tsv | wc -l
+perl -ne '@v = split(/\t/); print if($v[15] < 0.01)' < amel-final.tsv | wc -l
 
 # Store significant events in a separate table
-perl -ne '@v = split(/\t/); print if($v[14] < 0.01)' < amel-final.tsv \
+perl -ne '@v = split(/\t/); print if($v[15] < 0.01)' < amel-final.tsv \
     > amel-final-sig-01.tsv
 ```
 
