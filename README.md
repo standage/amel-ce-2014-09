@@ -67,14 +67,20 @@ scripts in the ``example`` directory perform the calculations.
 |   Control   |       208        |      546       |
 |  Treatment  |       218        |      801       |
 
+  **Note**: The counts for mapped reads spanning splice junctions reported in
+  the paper is less than what is shown here. Yang confirmed that they only
+  showed the calculation for a single control and a single treatment. The
+  Fisher's Exact Test for the numbers reported in the paper produces a p value
+  of 0.09288.
+
 ### Pcov
   The ES skipping ratio was calculated for each replicate using the
   ``example/es-ratio.py`` script. These values were then used to calculate Pcov
-  with the ``example/pcov.py`` script. These values could not be confirmed since
-  Yang provided no coverage data.
+  with the ``example/pcov.py`` script.
 
   The unpaired t test on control versus treatment skipping ratios produces a p
-  value of 0.74836.
+  value of 0.74836. No Pcov calculations are provided for the example in the
+  paper, so no comparison with the published data is possible.
 
 ### Combined probability
   Pcov and Pcount were combined using Fisher's combined probability, as
@@ -82,4 +88,52 @@ scripts in the ``example`` directory perform the calculations.
   script.
 
   Fisher's method yields a chi square value of 12.287, which at 2k=4 degrees of
-  freedom produces a p value of 0.01534.
+  freedom produces a p value of 0.01534. Again, these values are not provided
+  for the example in the paper, so no comparison with the published result is
+  possible.
+
+## Results
+
+The ``amel-final.tsv`` file contains a table with all of the read counts (summed
+across replicates), Pcov values, Pcount values, combined probabilities, and
+probabilities adjusted for multiple testing (see the table headers). Simple
+shell commands can determine how many events are significant (at a particular
+threshold) and which events those are.
+
+```bash
+# How many skipped exon events and significant?
+perl -ne '@v = split(/\t/); print if($v[14] < 0.01)' < amel-final.tsv | wc -l
+
+# Store significant events in a separate table
+perl -ne '@v = split(/\t/); print if($v[14] < 0.01)' < amel-final.tsv \
+    > amel-final-sig-01.tsv
+```
+
+Using the methods described herein, we determine 35 skipped/cassette exon events
+to be significant at a FDR of < 0.01, many fewer than the 192 events reported in
+the dmnt3 knockdown paper.
+
+## Discussion
+
+- The ``CE`` file provided by Yang annotates CE events by listing the start and
+  end coordinates of the skipped exon, as well as the closest nucleotide of each
+  flanking exon. Using the OGS 3.2, this describes a single unambiguous set of 3
+  exons, the middle of which is alternatively skipped. However, in some cases
+  the description matches multiple potential flanking exons, and in some cases
+  the description fails to provide a match for one or both of the flanking
+  exons. These missing exons were probably found using the method described in
+  the TrueSight supplement (improving the GLEAN annotation), but neither the
+  improved annotation nor the code used to generate it has been made available.
+  Regarding CE events with multiple potential combinations of flanking exons,
+  handling of this case was not described in the dmnt3 knockdown paper or its
+  supplement, so for now I have ignored these cases. This may explain some of
+  the discrepancy between the results I describe here and those reported in the
+  published paper.
+- I have a concern about normalization for library size (or the lack thereof)
+  for some of these calculations. It seems reasonable that library size need not
+  be taken into account for Pcov calculations, since there are based on coverage
+  ratios of adjacent exons within a replicate. However, the Pcount values are
+  calculated from raw read counts aggregated over all replicates. Without
+  normalizing for library size, it seems impossible to discriminate whether
+  higher read counts are the result of higher expression or higher sequencing
+  depth.

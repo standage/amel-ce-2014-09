@@ -13,6 +13,7 @@ for line in sys.stdin:
   control_is = int(fields[7])
   treatment_ic = round((float(fields[8]) + float(fields[9])) / 2)
   treatment_is = int(fields[10])
+  pcount = float('NaN')
   pcount_str = "nan"
   if control_ic + control_is + treatment_ic + treatment_is > 0:
     oddsratio, pcount = stats.fisher_exact([[control_ic, control_is], [treatment_ic, treatment_is]])
