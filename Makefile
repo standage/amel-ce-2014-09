@@ -35,7 +35,7 @@ amel-pcov.tsv:				amel-ce-summed.tsv amel-exoncov.tsv pcov.py
 #----------------------------
 amel-ce-summed.tsv:			amel-ce.tsv
 					echo $$'exon1-exon2:control\texon2-exon3:control\texon1-exon3:control\texon1-exon2:treatment\texon2-exon3:treatment\texon1-exon3:treatment' > junc-span-counts.tsv 
-					cut -f 6-  amel-ce.tsv | tail -n +2 | awk -v OFS=$$'\t' '{ print $$1+$$4+$$7+$$10+$$13+$$16,$$2+$$5+$$8+$$11+$$14+$$17,$$3+$$6+$$9+$$12+$$15+$$18,$$19+$$22+$$25+$$28+$$31+$$34,$$20+$$23+$$26+$$29+$$32+$$35,$$21+$$24+$$27+$$30+$$33+$$36 }' >> junc-span-counts.tsv
+					cut -f 6-  amel-ce.tsv | tail -n +2 | awk -v OFS=$$'\t' '{ print $$1+$$4+$$7,$$10+$$13+$$16,$$2+$$5+$$8,$$11+$$14+$$17,$$3+$$6+$$9,$$12+$$15+$$18 }' >> junc-span-counts.tsv
 					cut -f 1-5 amel-ce.tsv | head -n 1 | perl -ne 's/[ \t]+/\t/g; print' > amel-dmnt3-kd-ce.temp
 					cut -f 1-5 amel-ce.tsv | tail -n +2 | awk -v OFS=$$'\t' '{ print $$1,$$2-1,$$3,$$4-1,$$5 }' >> amel-dmnt3-kd-ce.temp
 					paste amel-dmnt3-kd-ce.temp junc-span-counts.tsv > amel-ce-summed.tsv

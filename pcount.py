@@ -18,12 +18,13 @@ for line in sys.stdin:
   if control_ic + control_is + treatment_ic + treatment_is > 0:
     oddsratio, pcount = stats.fisher_exact([[control_ic, control_is], [treatment_ic, treatment_is]])
     pcount_str = "%.5f" % pcount
+    if pcount == 0:
+      pcount = 1e-16
   fields.append(pcount_str)
 
   if isnan(pcount) or isnan(pcov):
     fields.append("nan")
   else:
-    assert pcount > 0.0 and pcov > 0.0, "weird p-values: %.5f and %.5f" % (pcov, pcount)
     chi2 = -2 * ( log(pcount) + log(pcov) )
     fields.append("%.5f" % chi2)
   print "\t".join(fields)
