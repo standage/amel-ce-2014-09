@@ -59,7 +59,7 @@ for line in sys.stdin:
     cov_ab = cov_ab_control[i]
     cov_cd = cov_cd_control[i]
     cov_pq = cov_pq_control[i]
-    ratio = 1
+    ratio = 0
     if cov_ab + cov_cd > 0:
       ratio = (cov_ab + cov_cd - (2 * cov_pq)) / (cov_ab + cov_cd)
     control_es_ratios.append(ratio)
@@ -69,7 +69,7 @@ for line in sys.stdin:
     cov_ab = cov_ab_treatment[i]
     cov_cd = cov_cd_treatment[i]
     cov_pq = cov_pq_treatment[i]
-    ratio = 1
+    ratio = 0
     if cov_ab + cov_cd > 0:
       ratio = (cov_ab + cov_cd - (2 * cov_pq)) / (cov_ab + cov_cd)
     treatment_es_ratios.append(ratio)
