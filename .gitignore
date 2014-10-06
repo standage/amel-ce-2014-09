@@ -1,1 +1,4 @@
 *.bam
+*.ce
+*.ce.temp
+*.exoncov
