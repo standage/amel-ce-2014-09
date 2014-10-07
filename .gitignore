@@ -2,3 +2,7 @@
 *.ce
 *.ce.temp
 *.exoncov
+Makefile.wt.*
+Makefile.kd.*
+Makefile.wt-vs-kd.*
+sig.*
